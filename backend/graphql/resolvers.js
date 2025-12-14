@@ -9,7 +9,7 @@ const resolvers = {
       let match = {};
 
       // ✅ FUZZY SEARCH (multi-field)
-      if (search && search.trim() !== '') {
+      if (search && typeof search === 'string' && search.trim() !== '') {
         match.$or = [
           { title: { $regex: search, $options: 'i' } },
           { description: { $regex: search, $options: 'i' } },
@@ -20,13 +20,13 @@ const resolvers = {
         ];
       }
 
-      // ✅ PERFECT CATEGORY HANDLING (empty = ALL events)
-      if (category && category.trim() !== '') {
+      // ✅ PERFECT CATEGORY HANDLING (undefined/null/empty = ALL events)
+      if (category && typeof category === 'string' && category.trim() !== '') {
         match.category = { $regex: category, $options: 'i' };
       }
 
-      // ✅ SOURCE HANDLING (empty = ALL sources)
-      if (source && source.trim() !== '') {
+      // ✅ SOURCE HANDLING (undefined/null/empty = ALL sources)
+      if (source && typeof source === 'string' && source.trim() !== '') {
         match.source = source;
       }
 

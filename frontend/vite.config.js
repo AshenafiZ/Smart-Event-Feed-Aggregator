@@ -17,6 +17,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['@apollo/client']  // ✅ Fix Vite caching
+    include: ['@apollo/client']  
   }
 })

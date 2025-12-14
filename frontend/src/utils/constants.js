@@ -1,11 +1,3 @@
-// export const CATEGORIES = [
-//   'All Categories',
-//   'Science & Technology',
-//   'Conference',
-//   'Business',
-//   'Seminar',
-// ];
-
 
 export const CATEGORIES = [
   { value: '', label: 'All Categories' },

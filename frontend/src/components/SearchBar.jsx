@@ -1,15 +1,3 @@
-// export default function SearchBar({ value, onChange }) {
-//   return (
-//     <input
-//       type="text"
-//       placeholder="Search events (hackathon, AI, webinar...)"
-//       value={value}
-//       onChange={(e) => onChange(e.target.value)}
-//       className="w-full px-6 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-primary/30 focus:border-primary transition"
-//     />
-//   );
-// }
-
 import { useState } from 'react';
 
 const SearchBar = ({ onSearch, placeholder = "Search events..." }) => {
