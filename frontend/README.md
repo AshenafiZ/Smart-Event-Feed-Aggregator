@@ -1,7 +1,5 @@
-EventFlow - Smart Event Aggregator 🚀
+Smart Event Feed Aggregator 🚀
 MERN Stack Event Dashboard - Fetches tech events from Ticketmaster + Eventbrite, with fuzzy search, category filters, and responsive UI.
-
-[![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%20%7Chttps://github.com/perplexity-ai/eventflowhttps://img.shields.io/badge/Frontend-React%20%7C%20Vite%20%7C%20Tailhttps://github.com/perplexity-ai/eventflowhttps://img.shields.io/badge/Database-Mongohttps://github.com/perplexity-ai/eventflow
 
 📡 Dual API Integration: Ticketmaster (public) + Eventbrite (private org events)
 
@@ -19,12 +17,6 @@ MERN Stack Event Dashboard - Fetches tech events from Ticketmaster + Eventbrite,
 
 🖼️ Rich Events: Images, venues, ticket info, classifications
 
-🏗️ Architecture
-text
-Ticketmaster API → eventFetcher.js → MongoDB → GraphQL/REST → React Dashboard
-       ↓                    ↓                ↓           ↓
-  10 keywords         Normalizes         Full-text   Responsive UI
- hourly cron          category/tags      search      w/ filters
 🚀 Quick Start
 Prerequisites
 bash
@@ -51,8 +43,8 @@ text
 # Backend (.env)
 MONGODB_URI=mongodb://localhost:27017/events
 TICKETMASTER_KEY=your_ticketmaster_key_here
-EVENTBRITE_TOKEN=your_eventbrite_token (optional)
-EVENTBRITE_ORG_ID=your_org_id (optional)
+EVENTBRITE_TOKEN=your_eventbrite_token 
+EVENTBRITE_ORG_ID=your_org_id 
 PORT=5000
 
 # Frontend (vite.config.js proxy handles this automatically)
@@ -105,7 +97,6 @@ Create free account → Get API Key
 
 Add to .env: TICKETMASTER_KEY=your_key
 
-Eventbrite (Optional)
 eventbrite.com/platform/api
 
 Account Settings → Developer → API Keys
@@ -114,12 +105,6 @@ Get EVENTBRITE_TOKEN + EVENTBRITE_ORG_ID
 
 Only fetches YOUR organization events
 
-📱 Responsive Features
-Device	Events Grid	Filters	Search
-Mobile	1 column	Stacked	Full width
-Tablet	2 columns	2-col	Centered
-Laptop	3 columns	4-col	Large
-Desktop	4 columns	Full	Max width
 🧪 Testing
 bash
 # Backend health
@@ -139,25 +124,9 @@ CORS errors	Vite proxy handles automatically
 Invalid dates	Date normalization in formatDate.js
 📈 Performance
 text
-Fetch: 10 keywords × 20 events = 200 events/hour
 Search: Fuzzy multi-field regex (<50ms)
 Grid: Virtualized + lazy images
 Cron: Hourly updates + 90-day cleanup
-🔮 Future Enhancements
- Pagination (Load More)
-
- Map view (Google Maps)
-
- Eventbrite public search workaround
-
- User favorites
-
- Push notifications
-
- PWA support
-
-🤝 Contributing
-Fork repository
 
 Create feature branch
 
@@ -166,13 +135,12 @@ Update code + tests
 Submit PR with description
 
 📄 License
-MIT License - Free for commercial use.
+Free for commercial use.
 
 👨‍💻 Author
-Built with ❤️ by Perplexity AI
-Deployed Demo | API Docs
+Built with ❤️ Ashenafi Zewdie
 
-EventFlow: Your personal tech event radar 🎯
+EventFlow 🎯
 
 text
 graph TD
