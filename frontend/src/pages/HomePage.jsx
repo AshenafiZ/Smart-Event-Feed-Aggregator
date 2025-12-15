@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
-import SearchBar from '../components/SearchBar';
-import FilterPanel from '../components/FilterPanel';
-import EventList from '../components/EventList';
+import { RefreshCw } from 'lucide-react';
+import { cn } from '../utils/cn';
+import SearchBar from '../components/ui/SearchBar';
+import FilterPanel from '../components/ui/FilterPanel';
+import EventList from '../components/ui/EventList';
+import Footer from '../components/ui/Footer';
 import { useEvents } from '../hooks/useEvents';
 
 const HomePage = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [source, setSource] = useState('');
-  
+
   const { events, stats, loading, refetch, totalCount } = useEvents(search, category, source);
-  
+
   useEffect(() => {
     refetch({ search: '', category: '', source: '' });
   }, []);
@@ -31,25 +34,43 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-4 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+    <div className={cn(
+      "min-h-screen bg-gradient-to-br from-slate-900 via-black to-emerald-900",
+      "py-12 px-4 sm:px-6 lg:px-8 overflow-hidden"
+    )}>
       <div className="max-w-7xl mx-auto">
-        {/* Header  */}
-        <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4 sm:mb-6 md:mb-8 leading-tight">
+        {/* Header */}
+        <div className="text-center mb-16 lg:mb-24">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500 bg-clip-text text-transparent mb-6 sm:mb-8 leading-tight">
             EventFlow
           </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 max-w-2xl sm:max-w-3xl lg:max-w-4xl mx-auto leading-relaxed px-4">
             Discover amazing tech meetups, hackathons, webinars, and conferences near you.
           </p>
+
+          {/* Refresh Button */}
+          <button
+            onClick={() => refetch({ search, category, source })}
+            disabled={loading}
+            className={cn(
+              "mt-8 sm:mt-12 inline-flex items-center gap-3 px-8 py-4",
+              "bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl text-white font-semibold",
+              "hover:bg-white/20 hover:border-white/40 hover:shadow-2xl transition-all duration-300",
+              "disabled:opacity-50 disabled:cursor-not-allowed shadow-xl"
+            )}
+          >
+            <RefreshCw className={cn("h-5 w-5", loading && "animate-spin")} />
+            {loading ? 'Refreshing...' : 'Refresh Events'}
+          </button>
         </div>
 
         {/* Search */}
-        <div className="w-full mb-6 sm:mb-8 md:mb-12 max-w-4xl mx-auto">
+        <div className="w-full mb-12 lg:mb-16 max-w-5xl mx-auto">
           <SearchBar onSearch={handleSearch} />
         </div>
 
         {/* Filters */}
-        <div className="mb-8 sm:mb-12 md:mb-16 lg:mb-20">
+        <div className="mb-12 lg:mb-20">
           <FilterPanel
             category={category}
             source={source}
@@ -60,25 +81,31 @@ const HomePage = () => {
           />
         </div>
 
-        {/* Events Grid  */}
-        <div className="space-y-6 sm:space-y-8">
+        {/* Events Grid */}
+        <div className="space-y-8 lg:space-y-12">
           <EventList events={events} loading={loading} />
-          
+
           {events.length === 0 && !loading && (
-            <div className="text-center py-16 px-4 sm:px-6">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center">
-                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="text-center py-20 px-4 sm:px-6">
+              <div className="mx-auto w-24 h-24 sm:w-28 sm:h-28 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-3xl border-2 border-emerald-500/30 flex items-center justify-center mb-8 shadow-xl mx-auto">
+                <RefreshCw className="w-12 h-12 sm:w-14 sm:h-14 text-emerald-400" />
               </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3">No events found</h3>
-              <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-4 drop-shadow-lg">
+                No events found
+              </h3>
+              <p className="text-lg sm:text-xl text-white/60 max-w-lg mx-auto leading-relaxed">
                 Try adjusting your search or filters to discover more events.
               </p>
             </div>
           )}
         </div>
       </div>
+      <Footer
+        totalCount={totalCount}
+        stats={stats}
+        loading={loading}
+        onRefresh={() => refetch({ search, category, source })}
+      />
     </div>
   );
 };
